@@ -1,0 +1,22 @@
+<?php
+	require_once('inc/functions.php');
+	session_start();
+	  if(!(isset($_SESSION['id'])))
+	  {
+		 Redirect('signout.php'); 
+	}
+	else
+	{
+		if(isset($_GET['customer']))
+		{
+			$sp=$_SESSION['id'];
+			$customer=$_GET['customer'];
+			mysql_query("DELETE FROM waiting WHERE customer='$customer'");
+			Redirect('waiting.php');
+		}
+		else
+		{
+			Redirect("waiting.php");
+		}
+	}
+?>

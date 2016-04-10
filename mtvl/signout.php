@@ -1,0 +1,13 @@
+<?php
+	require_once('inc/functions.php');
+	session_start();
+	  if(!(isset($_SESSION['id'])))
+	  {
+		 Redirect('index.php'); 
+	}
+	else
+	{
+		destroySession();
+		Redirect('index.php');
+	}
+?>

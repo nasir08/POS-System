@@ -1,0 +1,22 @@
+<?php
+	require_once('inc/functions.php');
+	session_start();
+	  if(!(isset($_SESSION['id'])))
+	  {
+		 Redirect('signout.php'); 
+	}
+	else
+	{
+		if(isset($_GET['user']))
+		{
+			$sp=$_SESSION['id'];
+			$user=$_GET['user'];
+			mysql_query("UPDATE accounts SET status=1 WHERE id='$user'");
+			Redirect("all-accounts.php");
+		}
+		else
+		{
+			Redirect("all-accounts.php");
+		}
+	}
+?>

@@ -1,0 +1,38 @@
+<?php
+	require_once('inc/functions.php');
+	session_start();
+	  if(!(isset($_SESSION['id'])))
+	  {
+		 Redirect('index.php'); 
+	}
+	else
+	{
+		if(isset($_GET['e_id']))
+		{
+			$id=base64_decode($_GET['e_id']);
+			$sp=$_SESSION['id'];
+			mysql_query("DELETE FROM goods WHERE id='$id'");
+			if(isset($_GET['continue']))
+			{
+				$result=mysql_query("SELECT COUNT(id) FROM goods");
+         		$row=mysql_fetch_row($result);
+				if($row[0]<=10)
+				{
+					Redirect('goods-archive.php');
+				}
+				else
+				{
+					Redirect('goods-archive.php?page='.$_GET['continue']);
+				}
+			}
+			else
+			{
+				Redirect('goods-archive.php'); 
+		    }
+		}
+		else
+		{
+			Redirect('goods-archive.php'); 
+		}
+	}
+?>
